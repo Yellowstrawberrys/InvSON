@@ -1,0 +1,21 @@
+{
+  "id": "example",
+  "type": "frame",
+  "title": "Example frame",
+  "size": 27,
+  "contents": [
+      {
+        "type": "itemstack",
+        "slot": 5,
+        "name": "Not intractable item",
+        "lore": ["..."],
+        "material": "minecraft:cobblestone"
+      },
+      {
+        "type": "formattable",
+        "id": "changethis1",
+        "slot": 6
+      }
+    ],
+  "panes": [""]
+}

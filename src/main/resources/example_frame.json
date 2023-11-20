@@ -1,0 +1,32 @@
+{
+  "id": "example",
+  "type": "frame",
+  "title": "Example frame",
+  "size": 27,
+  "contents": [
+      {
+        "type": "itemstack",
+        "slot": 5,
+        "name": "Not intractable item",
+        "lore": ["..."],
+        "material": "minecraft:craftingtable"
+      },
+      {
+        "type": "formattable",
+        "id": "changethis1"
+      },
+      {
+        "type": "clicablecomponent",
+        "id": "something",
+        "onclick": "onclick",
+        "display": {
+          "name": "Intractable item",
+          "lore": [
+            "..."
+          ],
+          "material": "minecraft:craftingtable"
+        }
+      }
+    ],
+  "panes": [""]
+}
