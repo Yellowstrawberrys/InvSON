@@ -15,6 +15,17 @@
         "type": "formattable",
         "id": "changethis1",
         "slot": 6
+      },
+      {
+        "type": "component",
+        "slot": 7,
+        "class": "ClickableComponent",
+        "name": "shit",
+        "lore": ["asdfasdfad"],
+        "material": "minecraft:cobblestone",
+        "arguments": {
+          "onClick": "redirect://xyz/yellowstrawberry/wow/shit"
+        }
       }
     ],
   "panes": [""]

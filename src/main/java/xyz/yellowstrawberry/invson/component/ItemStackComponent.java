@@ -4,9 +4,15 @@ import org.bukkit.inventory.ItemStack;
 
 public class ItemStackComponent implements IComponent {
 
+    private final String id;
     private final ItemStack i;
-    private ItemStackComponent(ItemStack i) {
+    private ItemStackComponent(String id, ItemStack i) {
+        this.id = id;
         this.i = i;
+    }
+
+    public String getID() {
+        return id;
     }
 
     @Override
@@ -21,7 +27,7 @@ public class ItemStackComponent implements IComponent {
                 '}';
     }
 
-    public static ItemStackComponent of(ItemStack i) {
-        return new ItemStackComponent(i);
+    public static ItemStackComponent of(String id, ItemStack i) {
+        return new ItemStackComponent(id, i);
     }
 }

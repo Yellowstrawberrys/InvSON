@@ -8,14 +8,14 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import xyz.yellowstrawberry.invson.Frame;
-import xyz.yellowstrawberry.invson.component.FormattableComponent;
-import xyz.yellowstrawberry.invson.component.ItemStackComponent;
+import xyz.yellowstrawberry.invson.component.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.MissingFormatArgumentException;
+import java.util.*;
 
 public class InvSONParser {
+    private static final Map<String, ComponentBuilder<?>> components = new HashMap<>(){{
+        put("IntractableComponent", (ComponentBuilder<IntractableComponent>) IntractableComponent::of);
+    }};
     private static final MiniMessage mini = MiniMessage.miniMessage();
     public static Frame parseFrame(String s) {
         JSONObject o = new JSONObject(s);
@@ -25,8 +25,19 @@ public class InvSONParser {
             ContentType type = ContentType.valueOf(content.getString("type").toUpperCase());
             int xy = getXYFromContent(content);
             switch (type) {
-                case ITEMSTACK -> f.setComponent(xy, ItemStackComponent.of(buildItemStackFromContent(content)));
+                case ITEMSTACK -> f.setComponent(xy, ItemStackComponent.of(content.has("id")?content.getString("id"):null, buildItemStackFromContent(content)));
                 case FORMATTABLE -> f.setComponent(xy, FormattableComponent.of(content.getString("id")));
+                case COMPONENT -> {
+                    if(content.has("class")) {
+                        if(!components.containsKey(content.getString("class"))) throw new IllegalArgumentException("Cannot find component class named '%s'.".formatted(content.getString("class")));
+                        f.setComponent(xy, components.get(content.getString("class")).loadComponent(
+                                content.has("id")?content.getString("id"):null,
+                                content.has("material")?buildItemStackFromContent(content):null,
+                                content.getJSONObject("arguments")
+                                )
+                        );
+                    }else throw new IllegalArgumentException("Argument 'class' is not found");
+                }
             }
         }
         return f;
