@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'xyz.yellowstrawberry'
@@ -16,10 +17,17 @@ repositories {
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
     implementation "org.json:json:20230227"
+    implementation 'com.github.f4b6a3:tsid-creator:5.2.5'
     testImplementation 'com.github.seeseemelk:MockBukkit-v1.20:3.9.0'
     testImplementation("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+shadowJar {
+    dependencies {
+        exclude(dependency('io.papermc.paper:paper-api'))
+    }
 }
 
 test {

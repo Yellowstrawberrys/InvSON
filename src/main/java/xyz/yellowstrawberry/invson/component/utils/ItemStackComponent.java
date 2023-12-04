@@ -1,6 +1,7 @@
-package xyz.yellowstrawberry.invson.component;
+package xyz.yellowstrawberry.invson.component.utils;
 
 import org.bukkit.inventory.ItemStack;
+import xyz.yellowstrawberry.invson.component.IComponent;
 
 public class ItemStackComponent implements IComponent {
 

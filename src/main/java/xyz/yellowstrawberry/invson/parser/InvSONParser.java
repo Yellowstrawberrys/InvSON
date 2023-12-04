@@ -9,14 +9,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import xyz.yellowstrawberry.invson.Frame;
 import xyz.yellowstrawberry.invson.component.*;
+import xyz.yellowstrawberry.invson.component.utils.FormattableComponent;
+import xyz.yellowstrawberry.invson.component.utils.IntractableComponent;
+import xyz.yellowstrawberry.invson.component.utils.ItemStackComponent;
 
 import java.util.*;
 
 public class InvSONParser {
+    private static final MiniMessage mini = MiniMessage.miniMessage();
     private static final Map<String, ComponentBuilder<?>> components = new HashMap<>(){{
         put("IntractableComponent", (ComponentBuilder<IntractableComponent>) IntractableComponent::of);
     }};
-    private static final MiniMessage mini = MiniMessage.miniMessage();
+
     public static Frame parseFrame(String s) {
         JSONObject o = new JSONObject(s);
         Frame f = new Frame(o.getString("id"), Component.text(o.getString("title")), o.getInt("size"));
@@ -38,6 +42,7 @@ public class InvSONParser {
                         );
                     }else throw new IllegalArgumentException("Argument 'class' is not found");
                 }
+                default -> throw new IllegalArgumentException("Cannot find type of `%s`.".formatted(content.getString("type").toUpperCase()));
             }
         }
         return f;

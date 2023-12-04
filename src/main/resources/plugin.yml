@@ -1,0 +1,10 @@
+name: InvSON
+version: 'Alpha-0.0.0.1'
+description: 'Inventory GUI'
+author: Yellowstrawberrys
+main: xyz.yellowstrawberry.invson.InvSON
+api-version: 1.20
+folia-supported: true
+commands:
+  test:
+    description: test

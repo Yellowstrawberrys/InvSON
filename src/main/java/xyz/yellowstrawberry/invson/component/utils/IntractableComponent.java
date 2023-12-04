@@ -1,10 +1,12 @@
-package xyz.yellowstrawberry.invson.component;
+package xyz.yellowstrawberry.invson.component.utils;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.json.JSONObject;
+import xyz.yellowstrawberry.invson.component.IComponent;
+import xyz.yellowstrawberry.invson.component.RepaintBehavior;
 
 import java.util.function.Consumer;
 
@@ -12,7 +14,7 @@ public class IntractableComponent implements IComponent {
 
     private final String id;
     private ItemStack display;
-    private boolean requiresRepaint = false;
+    private RepaintBehavior requiresRepaint = RepaintBehavior.NONE;
 
     private Consumer<InventoryClickEvent> onClick;
     private Consumer<InventoryDragEvent> onDrag;
@@ -33,22 +35,21 @@ public class IntractableComponent implements IComponent {
 
     public void setDisplay(ItemStack display) {
         this.display = display;
-        requiresRepaint = true;
     }
 
     @Override
     public ItemStack paint() {
-        requiresRepaint = false;
         return display;
     }
 
     @Override
     public void onInteract(InventoryInteractEvent event) {
+        System.out.println("Click!");
         IComponent.super.onInteract(event);
     }
 
     @Override
-    public boolean requiresRepaint() {
+    public RepaintBehavior getRepaintBehavior() {
         return requiresRepaint;
     }
 

@@ -4,29 +4,24 @@
   "title": "Example frame",
   "size": 27,
   "contents": [
-      {
-        "type": "itemstack",
-        "slot": 5,
-        "name": "Not intractable item",
-        "lore": ["..."],
-        "material": "minecraft:craftingtable"
-      },
-      {
-        "type": "formattable",
-        "id": "changethis1"
-      },
-      {
-        "type": "clicablecomponent",
-        "id": "something",
-        "onclick": "onclick",
-        "display": {
-          "name": "Intractable item",
-          "lore": [
-            "..."
-          ],
-          "material": "minecraft:craftingtable"
-        }
+    {
+      "type": "itemstack",
+      "slot": 5,
+      "name": "Not intractable item",
+      "lore": ["..."],
+      "material": "minecraft:cobblestone"
+    },
+    {
+      "type": "component",
+      "slot": 7,
+      "class": "IntractableComponent",
+      "name": "shit",
+      "lore": ["asdfasdfad"],
+      "material": "minecraft:cobblestone",
+      "arguments": {
+        "onClick": "redirect://xyz/yellowstrawberry/wow/shit"
       }
-    ],
+    }
+  ],
   "panes": [""]
 }

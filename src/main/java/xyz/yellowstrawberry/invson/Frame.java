@@ -3,6 +3,7 @@ package xyz.yellowstrawberry.invson;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.Inventory;
 import xyz.yellowstrawberry.invson.component.IComponent;
+import xyz.yellowstrawberry.invson.component.RepaintBehavior;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,8 +41,8 @@ public class Frame {
     }
 
     public void setComponent(int xy, IComponent comp) {
-        if(components[xy]!=null&&comp.requiresRepaint()) requiresRepaint.remove(requiresRepaint.indexOf(xy));
-        if(comp!=null&&comp.requiresRepaint()) requiresRepaint.add(xy);
+        if(components[xy]!=null && components[xy].getRepaintBehavior() == RepaintBehavior.ON_ANYTHING_CLICKED) requiresRepaint.remove(requiresRepaint.indexOf(xy));
+        if(comp!=null && comp.getRepaintBehavior() == RepaintBehavior.ON_ANYTHING_CLICKED) requiresRepaint.add(xy);
         components[xy] = comp;
     }
 
@@ -51,6 +52,10 @@ public class Frame {
 
     public IComponent getComponent(int xy) {
         return components[xy];
+    }
+
+    public IComponent[] getComponents() {
+        return this.components;
     }
 
     public void addPane(Pane pane) {

@@ -19,7 +19,7 @@
       {
         "type": "component",
         "slot": 7,
-        "class": "ClickableComponent",
+        "class": "IntractableComponent",
         "name": "shit",
         "lore": ["asdfasdfad"],
         "material": "minecraft:cobblestone",
