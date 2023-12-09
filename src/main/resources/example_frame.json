@@ -2,6 +2,7 @@
   "id": "example",
   "type": "frame",
   "title": "Example frame",
+  "controller": "xyz.yellowstrawberry.invson.TestController",
   "size": 27,
   "contents": [
     {
@@ -12,6 +13,7 @@
       "material": "minecraft:cobblestone"
     },
     {
+      "id": "wow",
       "type": "component",
       "slot": 7,
       "class": "IntractableComponent",
