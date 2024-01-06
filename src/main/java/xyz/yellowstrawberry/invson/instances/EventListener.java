@@ -13,8 +13,8 @@ public class EventListener implements Listener {
     public void onInventoryInteract(InventoryClickEvent event) {
         System.out.println("ddd");
         if(event.getInventory().getHolder() instanceof InventoryInstanceHolder h) {
-            if(InstanceGenerator.inventoryInstances.containsKey(h.getId())) {
-                InstanceGenerator.inventoryInstances.get(h.getId()).onInteractEvent(event);
+            if(InventoryInstance.inventoryInstances.containsKey(h.getId())) {
+                InventoryInstance.inventoryInstances.get(h.getId()).onInteractEvent(event);
                 event.setCancelled(true);
             }else event.getWhoClicked().closeInventory(InventoryCloseEvent.Reason.CANT_USE);
         }
@@ -22,10 +22,9 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onInventoryInteract(InventoryDragEvent event) {
-        System.out.println("ddd");
         if(event.getInventory().getHolder() instanceof InventoryInstanceHolder h) {
-            if(InstanceGenerator.inventoryInstances.containsKey(h.getId())) {
-                InstanceGenerator.inventoryInstances.get(h.getId()).onInteractEvent(event);
+            if(InventoryInstance.inventoryInstances.containsKey(h.getId())) {
+                InventoryInstance.inventoryInstances.get(h.getId()).onInteractEvent(event);
                 event.setCancelled(true);
             }else event.getWhoClicked().closeInventory(InventoryCloseEvent.Reason.CANT_USE);
         }

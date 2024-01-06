@@ -7,7 +7,6 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import xyz.yellowstrawberry.invson.instances.EventListener;
-import xyz.yellowstrawberry.invson.instances.InstanceGenerator;
 import xyz.yellowstrawberry.invson.instances.InventoryInstance;
 import xyz.yellowstrawberry.invson.parser.InvSONParser;
 
@@ -31,7 +30,7 @@ public class InvSON extends JavaPlugin {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if(command.getName().equals("test")) {
             try {
-                InventoryInstance i = InstanceGenerator.createInstance(InvSONParser.parseFrame(new String(InvSON.class.getResourceAsStream("/example_frame.json").readAllBytes(), StandardCharsets.UTF_8)));
+                InventoryInstance i = InventoryInstance.newInstance(InvSONParser.parseFrame(new String(InvSON.class.getResourceAsStream("/example_frame.json").readAllBytes(), StandardCharsets.UTF_8)));
                 i.open((HumanEntity) sender);
             } catch (IOException e) {
                 throw new RuntimeException(e);

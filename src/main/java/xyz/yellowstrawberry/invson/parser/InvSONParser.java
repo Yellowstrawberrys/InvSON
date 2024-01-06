@@ -3,6 +3,7 @@ package xyz.yellowstrawberry.invson.parser;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.json.JSONArray;
@@ -36,13 +37,13 @@ public class InvSONParser {
                         if(!components.containsKey(content.getString("class"))) throw new IllegalArgumentException("Cannot find component class named '%s'.".formatted(content.getString("class")));
                         f.setComponent(xy, components.get(content.getString("class")).loadComponent(
                                 content.has("id")?content.getString("id"):null,
-                                content.has("material")?buildItemStackFromContent(content):null,
+                                content.has("item")?buildItemStackFromContent(content.getJSONObject("item")):null,
                                 content.getJSONObject("arguments")
                                 )
                         );
-                    }else throw new IllegalArgumentException("Argument 'class' is not found");
+                    }else throw new IllegalArgumentException("Argument 'class' is not found (slot %d).".formatted(xy));
                 }
-                default -> throw new IllegalArgumentException("Cannot find type of `%s`.".formatted(content.getString("type").toUpperCase()));
+                default -> throw new IllegalArgumentException("Cannot find type of `%s` (slot %d).".formatted(content.getString("type").toUpperCase(), xy));
             }
         }
         return f;
@@ -57,6 +58,7 @@ public class InvSONParser {
         ItemMeta meta = itemStack.getItemMeta();
         if(o.has("name")) meta.displayName(mini.deserialize(o.getString("name")));
         if(o.has("lore")) meta.lore(deserializeLore(o.getJSONArray("lore")));
+        if(o.has("flags")) meta.addItemFlags(deserializeFlags(o.getJSONArray("flags")));
         itemStack.setItemMeta(meta);
         return itemStack;
     }
@@ -68,6 +70,14 @@ public class InvSONParser {
             list.add(mini.deserialize(s));
         }
         return list;
+    }
+
+    private static ItemFlag[] deserializeFlags(JSONArray a) {
+        ItemFlag[] flags = new ItemFlag[a.length()];
+        for(int i=0; i<flags.length; i++) {
+            flags[i] = ItemFlag.valueOf(a.get(i).toString().toUpperCase());
+        }
+        return flags;
     }
 
 

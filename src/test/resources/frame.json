@@ -20,11 +20,13 @@
         "type": "component",
         "slot": 7,
         "class": "IntractableComponent",
-        "name": "shit",
-        "lore": ["asdfasdfad"],
-        "material": "minecraft:cobblestone",
+        "item": {
+          "name": "shit",
+          "lore": ["asdfasdfad"],
+          "material": "minecraft:cobblestone"
+        },
         "arguments": {
-          "onClick": "redirect://xyz/yellowstrawberry/wow/shit"
+          "": ""
         }
       }
     ],

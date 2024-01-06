@@ -1,5 +1,7 @@
 package xyz.yellowstrawberry.invson.instances;
 
+import com.github.f4b6a3.tsid.TsidCreator;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -16,13 +18,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InventoryInstance {
+    protected static final Long2ObjectOpenHashMap<InventoryInstance> inventoryInstances = new Long2ObjectOpenHashMap<>();
+
     private final long id;
     private final Frame frame;
     private final Inventory inventory;
     private final IComponent[] components;
 
     public InventoryInstance(Frame frame, IFG... ifgs) {
-        this.id = InstanceGenerator.generateIdentifier();
+        this.id = generateIdentifier();
         this.frame = frame;
         InventoryInstanceHolder h = new InventoryInstanceHolder(id);
         this.inventory = Bukkit.createInventory(h, frame.getSize(), frame.getTitle());
@@ -68,5 +72,18 @@ public class InventoryInstance {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+
+    public static InventoryInstance newInstance(Frame frame, IFG... ifgs) {
+        InventoryInstance instance = new InventoryInstance(frame, ifgs);
+        inventoryInstances.put(instance.getInstanceIdentifier(), instance);
+        return instance;
+    }
+
+    public static long generateIdentifier() {
+        long id = TsidCreator.getTsid().toLong();
+        if(inventoryInstances.containsKey(id)) return generateIdentifier();
+        return id;
     }
 }
